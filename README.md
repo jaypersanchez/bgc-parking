@@ -52,3 +52,6 @@ You are free to design the system in any pattern you wish. However, take note th
   (d) Two functions to park a vehicle and unpark it. The functions must consider the attributes of the vehicle as described above.
       When the unpark function is called, it must also return how much the vehicle concerned is charged.
 
+# Use Case
+
+![BGC Smart Parking System](./BGC%20Smart%20Parking%20System.png)
