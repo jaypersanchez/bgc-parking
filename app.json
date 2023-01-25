@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "bgc-parking",
+    "slug": "bgc-parking",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "bgc-parking"
+}
