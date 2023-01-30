@@ -1,20 +1,16 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { StyleSheet, Text, View, Pressable } from 'react-native';
+import { StyleSheet, Text, View, Pressable, TouchableOpacity } from 'react-native';
+import Entry from './Entry'
 
 const Exit = ({navigate}) => {
     return (
         <>
-        <Pressable
-          android_ripple={{color:'#ccc'}}
-          style={({pressed}) => [
-            styles.button,
-            pressed ? styles.buttonPressed : null,
-          ]} 
-        >
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
           <Text>Exit Lot</Text>
         </View>
-        </Pressable>
+        <TouchableOpacity onPress={() => navigation.navigate(Entry)}>
+          <Text>Entry</Text>
+        </TouchableOpacity>
         </>
       );
 }

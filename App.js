@@ -16,6 +16,7 @@ export default function App() {
         <NavigationContainer>
           <Stack.Navigator initialRouteName="Entry">
             <Stack.Screen name="Entry" component={Entry} />
+            <Stack.Screen name="Exit" component={Exit} />
           </Stack.Navigator>
         </NavigationContainer>  
       
