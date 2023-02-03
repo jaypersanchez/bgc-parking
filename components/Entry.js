@@ -1,15 +1,17 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Button } from 'react-native';
+import AsyncStorage  from '@react-native-async-storage/async-storage';
 import { StatusBar } from 'expo-status-bar';
 import uuid from 'react-native-uuid';
 import { SelectList } from 'react-native-dropdown-select-list'
 import Exit from './Exit';
 
+
 const Entry = ({navigation}) => {
 
     const [parkUUID, setParkUUID] = useState('000');
     const [entryTimestamp, setEntryTimestamp] = useState()
-    const [exitTimestamp, setExitTimestamp] = useState()
+    const [exitTimestamp, setExitTimestamp] = useState("")
     const [selected, setSelected] = useState()
     const [designationRate, setDesignationRate] = useState()
     const [ticketStatus, setTicketStatus] = useState(1)
@@ -31,6 +33,13 @@ const Entry = ({navigation}) => {
         setParkUUID(uuid.v4())
       },[])
 
+      useMemo(() => {
+        AsyncStorage.getAllKeys()
+        .then(allkeys => {
+          console.log(`allkeys ${allkeys}`)
+        })
+      },[])
+
       const setHourlyRate = () => {
         if(selected === "Small") {
           setDesignationRate(20)
@@ -43,6 +52,14 @@ const Entry = ({navigation}) => {
         if(selected === "Large") {
           setDesignationRate(100)
         }
+      }
+
+      const saveTicket = () => {
+        console.log(`${JSON.stringify({uuid: parkUUID, status:ticketStatus, lotentry:entryTimestamp,lotexit:exitTimestamp, designation:selected, rate:designationRate})}`)
+          AsyncStorage.setItem(parkUUID, JSON.stringify({status:ticketStatus, lotentry:entryTimestamp,lotexit:exitTimestamp, designation:selected, rate:designationRate}))
+          .then(error => {
+            if(error) console.log(`Unable to save ticket information`)
+          })
       }
 
       return (
@@ -62,9 +79,14 @@ const Entry = ({navigation}) => {
                 save="value"
               />
           </View>
-          <TouchableOpacity onPress={() => navigation.navigate("Exit")}>
-            <Text>Exit Lot</Text>
-          </TouchableOpacity>
+          <View>
+                <Button onPress={saveTicket}>Save Ticket</Button>
+          </View>
+          <View>
+            <TouchableOpacity onPress={() => navigation.navigate("Exit")}>
+              <Text>Exit Lot</Text>
+            </TouchableOpacity>
+          </View>
         </View>
         </>
       );
