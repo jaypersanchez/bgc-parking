@@ -14,6 +14,7 @@ const Return = ({navigate}) => {
     const [ticketStatus, setTicketStatus] = useState(1)
     const [uuidlist, setuuidlist] = useState([])
 
+    //load all active tickets
     useMemo(() => {
         AsyncStorage.getAllKeys()
         .then(allkeys => {
@@ -24,6 +25,20 @@ const Return = ({navigate}) => {
         })
     }, [])
 
+    const getTicketDetail = async () => {
+        
+        AsyncStorage.getItem(selected)
+        .then(details => {
+            setParkUUID(selected)
+            let obj = JSON.parse(details)
+            console.log(`${obj.status}::${obj.lotentry}`)
+            //{"status":1,"lotentry":"2/3/2023 - 12::9","lotexit":"","designation":"Small","rate":20}
+            //is returning car within one hour of exit
+            
+        })
+        
+    }
+
     return (
         <>
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
@@ -32,11 +47,14 @@ const Return = ({navigate}) => {
         <View>
               <Text>Ticket UUID</Text>
               <SelectList 
-                onSelect={() => setParkUUID()}
+                onSelect={() => getTicketDetail()}
                 setSelected={(val) => setSelected(val)}
                 data={uuidlist}
                 save="value"
               />
+          </View>
+          <View>
+
           </View>
         <TouchableOpacity onPress={() => navigation.navigate(Entry)}>
           <Text>Entry</Text>
