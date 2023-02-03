@@ -7,6 +7,7 @@ import Entry from './Entry'
 const Exit = ({navigate}) => {
 
   const [parkUUID, setParkUUID] = useState('000');
+  const [overtimefee, setovertimefee] = useState(5000)
   const [entryTimestamp, setEntryTimestamp] = useState()
   const [exitTimestamp, setExitTimestamp] = useState("")
   const [selected, setSelected] = useState()
@@ -41,7 +42,7 @@ const Exit = ({navigate}) => {
         let rate = obj.rate
         console.log(`${hours}::${rate}`)
         if(hours >= 24) {
-          const fee = (rate*hours)+5000
+          const fee = (rate*hours)+overtimefee
           console.log(`over time charge ${fee}`)
         }
         else {
