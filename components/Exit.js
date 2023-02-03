@@ -24,18 +24,31 @@ const Exit = ({navigate}) => {
     })
   }, [])
 
-  const getTicketDetail = async () => {
+  const processExit = async () => {
         
+    //get parking detail
     AsyncStorage.getItem(selected)
     .then(details => {
         setParkUUID(selected)
         let obj = JSON.parse(details)
-        console.log(`${obj.status}::${obj.lotentry}`)
         //{"status":1,"lotentry":"2/3/2023 - 12::9","lotexit":"","designation":"Small","rate":20}
-        //is returning car within one hour of exit
-        
+        //is exiting vehicle over 24 hours
+        const then = new Date(obj.epoch)
+        const now = new Date()
+        var msBetweenDates = (now.getTime() - then.getTime())/1000;
+        msBetweenDates /= (60*60)
+        let hours = Math.abs(Math.round(msBetweenDates))
+        let rate = obj.rate
+        console.log(`${hours}::${rate}`)
+        if(hours >= 24) {
+          const fee = (rate*hours)+5000
+          console.log(`over time charge ${fee}`)
+        }
+        else {
+          const fee = rate * hours
+          console.log(`normal charge ${fee}`)
+        }
     })
-    
   }
 
     return (
@@ -46,7 +59,7 @@ const Exit = ({navigate}) => {
         <View>
               <Text>Ticket UUID</Text>
               <SelectList 
-                onSelect={() => getTicketDetail()}
+                onSelect={() => processExit()}
                 setSelected={(val) => setSelected(val)}
                 data={uuidlist}
                 save="value"

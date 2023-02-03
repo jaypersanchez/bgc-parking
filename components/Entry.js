@@ -12,6 +12,7 @@ const Entry = ({navigation}) => {
     const [parkUUID, setParkUUID] = useState('000');
     const [entryTimestamp, setEntryTimestamp] = useState()
     const [exitTimestamp, setExitTimestamp] = useState("")
+    const [epoch, setEpoch] = useState()
     const [selected, setSelected] = useState()
     const [designationRate, setDesignationRate] = useState()
     const [ticketStatus, setTicketStatus] = useState(1)
@@ -23,13 +24,15 @@ const Entry = ({navigation}) => {
 
     useEffect(() => {
         setParkUUID('000')
+        setEpoch(new Date())
         var current = new Date().getDate()
         var month = new Date().getMonth() + 1
         var year = new Date().getFullYear()
         var hour = new Date().getHours()
         var minutes = new Date().getMinutes()
-        //military time format
-        setEntryTimestamp(`${month}/${current}/${year} - ${hour}::${minutes}`)
+        var seconds = new Date().getSeconds()
+        //military time format - '2022-01-24T09:30:20'
+        setEntryTimestamp(`${year}-${month}-${current}T${hour}:${minutes}:${seconds}`)
         setParkUUID(uuid.v4())
       },[])
 
@@ -56,8 +59,8 @@ const Entry = ({navigation}) => {
       }
 
       const saveTicket = () => {
-        console.log(`${JSON.stringify({uuid: parkUUID, status:ticketStatus, lotentry:entryTimestamp,lotexit:exitTimestamp, designation:selected, rate:designationRate})}`)
-          AsyncStorage.setItem(parkUUID, JSON.stringify({status:ticketStatus, lotentry:entryTimestamp,lotexit:exitTimestamp, designation:selected, rate:designationRate}))
+        console.log(`${JSON.stringify({uuid: parkUUID, status:ticketStatus, lotentry:entryTimestamp,lotexit:exitTimestamp, designation:selected, rate:designationRate,epoch:epoch})}`)
+          AsyncStorage.setItem(parkUUID, JSON.stringify({status:ticketStatus, lotentry:entryTimestamp,lotexit:exitTimestamp, designation:selected, rate:designationRate,epoch:epoch}))
           .then(error => {
             if(error) console.log(`Unable to save ticket information`)
           })
