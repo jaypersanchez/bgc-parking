@@ -5,6 +5,7 @@ import { StatusBar } from 'expo-status-bar';
 import uuid from 'react-native-uuid';
 import { SelectList } from 'react-native-dropdown-select-list'
 import Exit from './Exit';
+import Return from './Return';
 
 
 const Entry = ({navigation}) => {
