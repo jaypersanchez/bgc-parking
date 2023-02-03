@@ -33,12 +33,13 @@ const Entry = ({navigation}) => {
         setParkUUID(uuid.v4())
       },[])
 
-      useMemo(() => {
+      //get all keys stored in AsyncStorage
+      /*useMemo(() => {
         AsyncStorage.getAllKeys()
         .then(allkeys => {
           console.log(`allkeys ${allkeys}`)
         })
-      },[])
+      },[])*/
 
       const setHourlyRate = () => {
         if(selected === "Small") {
@@ -81,6 +82,11 @@ const Entry = ({navigation}) => {
           </View>
           <View>
                 <Button onPress={saveTicket}>Save Ticket</Button>
+          </View>
+          <View>
+            <TouchableOpacity onPress={() => navigation.navigate("Return")}>
+              <Text>Returning Vehicle</Text>
+            </TouchableOpacity>
           </View>
           <View>
             <TouchableOpacity onPress={() => navigation.navigate("Exit")}>

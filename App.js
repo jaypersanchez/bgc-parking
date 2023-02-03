@@ -7,6 +7,7 @@ import uuid from 'react-native-uuid';
 import { SelectList } from 'react-native-dropdown-select-list'
 import Entry from './components/Entry'
 import Exit from './components/Exit'
+import Return from './components/Return'
 
 export default function App() {
 
@@ -17,6 +18,7 @@ export default function App() {
           <Stack.Navigator initialRouteName="Entry">
             <Stack.Screen name="Entry" component={Entry} />
             <Stack.Screen name="Exit" component={Exit} />
+            <Stack.Screen name="Return" component={Return} />
           </Stack.Navigator>
         </NavigationContainer>  
       
