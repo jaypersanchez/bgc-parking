@@ -68,6 +68,7 @@ const Entry = ({navigation}) => {
 
       return (
         <>
+        <View><Text>Arriving Vehicle</Text></View>
         <View style={styles.container}>
           <Text>Ticket Status: {ticketStatus == 1 ? 'Open Ended' : 'Closed'}</Text>
           <Text>Parking Entry Identifier: {parkUUID}</Text>

@@ -55,3 +55,29 @@ You are free to design the system in any pattern you wish. However, take note th
 # Use Case
 
 ![BGC Smart Parking System](./BGC%20Smart%20Parking%20System.png)
+
+# Application User Guide
+
+This section explains how the application is used.  Because a simulation of a vehicle is not implemented, Each screen represents a use case scenario.  There are three scenarios:
+
+1. Arriving Vehicle
+2. Returning Vehicle
+3. Exit Lot
+
+### Arriving Vehicle
+
+Main screen are for vehicles entering the lot for the first time.  It is assumed that when a vehicle provides a ticket but is beyond the one hour threshold, or the vehicle doesn't provide a current parking ticket, a new parking ticket will be issued.
+
+### Returning Vehicle
+
+When an arriving vehicle presents a parking ticket that is on the current day, this simulated use case will confirm if the vehicle is within the one hour exit grace period.  If it is within range, the vehicle will then continue to enter the lot.  The lot rate will change however should the vehicle park in a larger or smaller lot space previously from their first entry.  
+
+If the returning vehicle doesn't present a ticket or if the ticket presented is outside the one hour grace period, then the "Arriving Vehicle" use case is the entry point.
+
+### Exit Lot
+
+This is the simplest out of the other use cases. Upon vehicle exit, the lot exit timestamp is noted.  A validation if the lot entry timestamp and lot exit timestamp is within the 24 hours period.  If it is, rate calculation is based on the rate of the lot the vehicle parked at.  If lot exit timestamp is over the 24 hours period, then the calculated rate multiplied by the number of hours parked and additional P5000 will be the parking fee.  The lot exit timestamp is then recorded that will be referenced by the "Arriving Vehicle" and "Returning Vehicle" use case scenario. 
+
+### Final Note
+
+The above uses have been implemented to simulate a simple good day scenario.  It doesn't have logic to determine if the right vehicle size is in the correct parking lot.  It is assumed that a small vehicle can park in any of the other lots.
