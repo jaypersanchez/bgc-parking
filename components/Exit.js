@@ -84,7 +84,14 @@ const Exit = ({navigate}) => {
         <View style={styles.container}>
           <View><Text style={styles.fieldlabels}>Exit Lot</Text></View>
         
-        <View style={styles.view1}>
+          <View style={styles.view2}>
+            <Text style={styles.fieldlabels}>Ticket Status:</Text><Text style={styles.fieldvalues}>{ticketStatus == 1 ? 'Open Ended' : 'Closed'}</Text>
+            <Text style={styles.fieldlabels}>Parking Entry Identifier:</Text><Text style={styles.fieldvalues}>{parkUUID}</Text>
+            <Text style={styles.fieldlabels}>Lot Entry Timestamp:</Text><Text style={styles.fieldvalues}>{entryTimestamp}</Text>
+            <Text style={styles.fieldlabels}>Lot Exit Timestamp:</Text><Text style={styles.fieldvalues}>{exitTimestamp}</Text>
+          </View>
+
+          <View style={styles.view1}>
               <Text>Ticket UUID</Text>
               <SelectList 
                 onSelect={() => processExit()}
@@ -92,13 +99,6 @@ const Exit = ({navigate}) => {
                 data={uuidlist}
                 save="value"
               />
-          </View>
-
-          <View style={styles.view2}>
-            <Text style={styles.fieldlabels}>Ticket Status:</Text><Text style={styles.fieldvalues}>{ticketStatus == 1 ? 'Open Ended' : 'Closed'}</Text>
-            <Text style={styles.fieldlabels}>Parking Entry Identifier:</Text><Text style={styles.fieldvalues}>{parkUUID}</Text>
-            <Text style={styles.fieldlabels}>Lot Entry Timestamp:</Text><Text style={styles.fieldvalues}>{entryTimestamp}</Text>
-            <Text style={styles.fieldlabels}>Lot Exit Timestamp:</Text><Text style={styles.fieldvalues}>{exitTimestamp}</Text>
           </View>
 
           <View style={{flexDirection:"row"}}>

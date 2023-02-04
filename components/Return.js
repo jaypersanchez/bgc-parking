@@ -94,6 +94,13 @@ const Return = ({navigate}) => {
         <View style={styles.container}>
           <View><Text style={styles.fieldlabels}>Re-Entry</Text></View>
           
+          <View style={styles.view2}>
+            <Text style={styles.fieldlabels}>Ticket Status:</Text><Text style={styles.fieldvalues}>{ticketStatus == 1 ? 'Open Ended' : 'Closed'}</Text>
+            <Text style={styles.fieldlabels}>Parking Entry Identifier:</Text><Text style={styles.fieldvalues}> {parkUUID}</Text>
+            <Text style={styles.fieldlabels}>Lot Entry Timestamp:</Text><Text style={styles.fieldvalues}>{entryTimestamp}</Text>
+            <Text style={styles.fieldlabels}>Lot Exit Timestamp:</Text><Text style={styles.fieldvalues}>{exitTimestamp}</Text>
+          </View>
+
           <View style={styles.view1}>
               <Text style={styles.fieldlabels}>Ticket UUID</Text>
               <SelectList 
@@ -102,12 +109,6 @@ const Return = ({navigate}) => {
                 data={uuidlist}
                 save="value"
               />
-          </View>
-          <View style={styles.view2}>
-            <Text style={styles.fieldlabels}>Ticket Status:</Text><Text style={styles.fieldvalues}>{ticketStatus == 1 ? 'Open Ended' : 'Closed'}</Text>
-            <Text style={styles.fieldlabels}>Parking Entry Identifier:</Text><Text style={styles.fieldvalues}> {parkUUID}</Text>
-            <Text style={styles.fieldlabels}>Lot Entry Timestamp:</Text><Text style={styles.fieldvalues}>{entryTimestamp}</Text>
-            <Text style={styles.fieldlabels}>Lot Exit Timestamp:</Text><Text style={styles.fieldvalues}>{exitTimestamp}</Text>
           </View>
 
           <View style={{flexDirection:"row"}}>
