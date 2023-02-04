@@ -37,15 +37,7 @@ const Entry = ({navigation}) => {
         setEntryTimestamp(`${year}-${month}-${current}T${hour}:${minutes}:${seconds}`)
         setParkUUID(uuid.v4())
       },[])
-
-      //get all keys stored in AsyncStorage
-      /*useMemo(() => {
-        AsyncStorage.getAllKeys()
-        .then(allkeys => {
-          console.log(`allkeys ${allkeys}`)
-        })
-      },[])*/
-
+      
       const setHourlyRate = () => {
         if(selected === "Small") {
           setDesignationRate(20)
