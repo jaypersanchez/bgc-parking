@@ -14,6 +14,7 @@ const Entry = ({navigation}) => {
     const [entryTimestamp, setEntryTimestamp] = useState()
     const [exitTimestamp, setExitTimestamp] = useState("")
     const [epoch, setEpoch] = useState()
+    const [balance, setBalance] = useState(0)
     const [selected, setSelected] = useState()
     const [designationRate, setDesignationRate] = useState()
     const [ticketStatus, setTicketStatus] = useState(1)
@@ -60,8 +61,8 @@ const Entry = ({navigation}) => {
       }
 
       const saveTicket = () => {
-        console.log(`${JSON.stringify({uuid: parkUUID, status:ticketStatus, lotentry:entryTimestamp,lotexit:exitTimestamp, designation:selected, rate:designationRate,epoch:epoch})}`)
-          AsyncStorage.setItem(parkUUID, JSON.stringify({status:ticketStatus, lotentry:entryTimestamp,lotexit:exitTimestamp, designation:selected, rate:designationRate,epoch:epoch}))
+        console.log(`${JSON.stringify({uuid: parkUUID, status:ticketStatus, lotentry:entryTimestamp,lotexit:exitTimestamp, designation:selected, rate:designationRate,epoch:epoch, balance:balance})}`)
+          AsyncStorage.setItem(parkUUID, JSON.stringify({status:ticketStatus, lotentry:entryTimestamp,lotexit:exitTimestamp, designation:selected, rate:designationRate,epoch:epoch,balance:balance}))
           .then(error => {
             if(error) console.log(`Unable to save ticket information`)
           })
@@ -69,15 +70,18 @@ const Entry = ({navigation}) => {
 
       return (
         <>
-        <View><Text>Arriving Vehicle</Text></View>
+        
         <View style={styles.container}>
-          <Text>Ticket Status: {ticketStatus == 1 ? 'Open Ended' : 'Closed'}</Text>
-          <Text>Parking Entry Identifier: {parkUUID}</Text>
-          <Text>Lot Entry Timestamp: {entryTimestamp}</Text>
-          <Text>Lot Exit Timestamp: {exitTimestamp}</Text>
-          <StatusBar style="auto" />
-          <View>
-              <Text>Vehicle Size Designation - {selected} Rate {designationRate}</Text>
+
+          <View><Text style={styles.fieldlabels}>Arriving Vehicle</Text></View>
+          
+          <View style={styles.view1}>
+              <Text style={styles.fieldlabels}>Ticket Status:</Text><Text style={styles.fieldvalues}>{ticketStatus == 1 ? 'Open Ended' : 'Closed'}</Text>
+              <Text style={styles.fieldlabels}>Parking Entry Identifier:</Text><Text style={styles.fieldvalues}>{parkUUID}</Text>
+              <Text style={styles.fieldlabels}>Lot Entry Timestamp:</Text><Text style={styles.fieldvalues}>{entryTimestamp}</Text>
+              <Text style={styles.fieldlabels}>Lot Exit Timestamp:</Text><Text style={styles.fieldvalues}>{exitTimestamp}</Text>
+              <StatusBar style="auto" />
+              <Text style={styles.fieldlabels}>Vehicle Size Designation -</Text><Text style={styles.fieldvalues}>{selected} Rate {designationRate}</Text>
               <SelectList 
                 onSelect={() => setHourlyRate()}
                 setSelected={(val) => setSelected(val)}
@@ -85,19 +89,19 @@ const Entry = ({navigation}) => {
                 save="value"
               />
           </View>
-          <View>
-                <Button onPress={saveTicket}>Save Ticket</Button>
-          </View>
-          <View>
-            <TouchableOpacity onPress={() => navigation.navigate("Return")}>
+
+          <View style={{flexDirection:"row"}}>
+            <TouchableOpacity style={styles.button1} onPress={() => saveTicket()}>
+                  <Text>Save Ticket</Text>
+                </TouchableOpacity>
+            <TouchableOpacity style={styles.button2} onPress={() => navigation.navigate("Return")}>
               <Text>Returning Vehicle</Text>
             </TouchableOpacity>
-          </View>
-          <View>
-            <TouchableOpacity onPress={() => navigation.navigate("Exit")}>
+            <TouchableOpacity style={styles.button3} onPress={() => navigation.navigate("Exit")}>
               <Text>Exit Lot</Text>
             </TouchableOpacity>
           </View>
+
         </View>
         </>
       );
@@ -106,11 +110,56 @@ const Entry = ({navigation}) => {
 
 const styles = StyleSheet.create({
     container: {
-      flex: 1,
+      padding: 30,
       backgroundColor: '#fff',
       alignItems: 'center',
       justifyContent: 'center',
     },
+    fieldlabels: {
+      fontWeight:"bold"
+    },
+    fieldvalues: {
+      color:"steelblue"
+    },
+    button1: {
+      alignItems: 'left',
+      justifyContent: 'left',
+      paddingVertical: 20,
+      paddingHorizontal: 32,
+      borderRadius: 1,
+      elevation: 1,
+      backgroundColor: 'green',
+    },
+    button2: {
+      alignItems: 'left',
+      justifyContent: 'left',
+      paddingVertical: 20,
+      paddingHorizontal: 32,
+      borderRadius: 1,
+      elevation: 1,
+      backgroundColor: 'orange',
+    },
+    button3: {
+      alignItems: 'left',
+      justifyContent: 'left',
+      paddingVertical: 20,
+      paddingHorizontal: 32,
+      borderRadius: 1,
+      elevation: 1,
+      backgroundColor: 'yellow',
+    },
+    view1: {
+      flex: 1,
+      padding:30
+    },
+    view2: {
+      flex: 2,
+      padding:30
+    },
+    view3: {
+      flex:3,
+      padding:30
+    }
   });
 
   export default Entry

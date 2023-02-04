@@ -51,12 +51,25 @@ const Return = ({navigate}) => {
         msBetweenDates /= (60*60)
         let hours = Math.abs(Math.round(msBetweenDates))
         let rate = obj.rate
+        let balance = obj.balance
         console.log(`${hours}::${rate}`)
         if(hours > 1) {
           console.log(`provide new ticket`)
+          navigation.navigate(Entry)
+          
         }
         else {
-          console.log(`Aloow entry and continue from lot entry timestamp`)
+          console.log(`Allow entry and continue from lot entry timestamp`)
+          AsyncStorage.removeItem(parkUUID,(error, result) => {
+            if(!error) {
+              const fee = (rate * hours)
+              setTicketStatus(1) //set to close
+              AsyncStorage.setItem(parkUUID, JSON.stringify({status:ticketStatus, lotentry:entryTimestamp,lotexit:exitTimestamp, designation:selected, rate:designationRate,epoch:epoch,balance:balance}))
+            }
+            else {
+              console.log(`Error.  Unable to remove`)
+            }
+          })
         }
     })
   }
@@ -78,11 +91,11 @@ const Return = ({navigate}) => {
 
     return (
         <>
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-          <Text>Re-Entry</Text>
-        </View>
-        <View>
-              <Text>Ticket UUID</Text>
+        <View style={styles.container}>
+          <View><Text style={styles.fieldlabels}>Re-Entry</Text></View>
+          
+          <View style={styles.view1}>
+              <Text style={styles.fieldlabels}>Ticket UUID</Text>
               <SelectList 
                 onSelect={() => processReentry()}
                 setSelected={(val) => setSelected(val)}
@@ -90,20 +103,78 @@ const Return = ({navigate}) => {
                 save="value"
               />
           </View>
-          <View>
-            <Text>Ticket Status: {ticketStatus == 1 ? 'Open Ended' : 'Closed'}</Text>
-            <Text>Parking Entry Identifier: {parkUUID}</Text>
-            <Text>Lot Entry Timestamp: {entryTimestamp}</Text>
-            <Text>Lot Exit Timestamp: {exitTimestamp}</Text>
+          <View style={styles.view2}>
+            <Text style={styles.fieldlabels}>Ticket Status:</Text><Text style={styles.fieldvalues}>{ticketStatus == 1 ? 'Open Ended' : 'Closed'}</Text>
+            <Text style={styles.fieldlabels}>Parking Entry Identifier:</Text><Text style={styles.fieldvalues}> {parkUUID}</Text>
+            <Text style={styles.fieldlabels}>Lot Entry Timestamp:</Text><Text style={styles.fieldvalues}>{entryTimestamp}</Text>
+            <Text style={styles.fieldlabels}>Lot Exit Timestamp:</Text><Text style={styles.fieldvalues}>{exitTimestamp}</Text>
           </View>
-          <View>
-            <TouchableOpacity onPress={() => pay()}><Text>Pay</Text></TouchableOpacity>
+
+          <View style={{flexDirection:"row"}}>
+            <TouchableOpacity style={styles.button1} onPress={() => pay()}><Text>Pay</Text></TouchableOpacity>
+            <TouchableOpacity style={styles.button2} onPress={() => navigation.navigate(Entry)}>
+              <Text>Entry</Text>
+            </TouchableOpacity>
           </View>
-        <TouchableOpacity onPress={() => navigation.navigate(Entry)}>
-          <Text>Entry</Text>
-        </TouchableOpacity>
+
+        </View>
         </>
       );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    padding: 30,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  fieldlabels: {
+    fontWeight:"bold"
+  },
+  fieldvalues: {
+    color:"steelblue"
+  },
+  button1: {
+    alignItems: 'left',
+    justifyContent: 'left',
+    paddingVertical: 20,
+    paddingHorizontal: 32,
+    borderRadius: 1,
+    elevation: 1,
+    backgroundColor: 'green',
+  },
+  button2: {
+    alignItems: 'left',
+    justifyContent: 'left',
+    paddingVertical: 20,
+    paddingHorizontal: 32,
+    borderRadius: 1,
+    elevation: 1,
+    backgroundColor: 'orange',
+  },
+  button3: {
+    alignItems: 'left',
+    justifyContent: 'left',
+    paddingVertical: 20,
+    paddingHorizontal: 32,
+    borderRadius: 1,
+    elevation: 1,
+    backgroundColor: 'yellow',
+  },
+  view1: {
+    flex: 1,
+    padding:30
+  },
+  view2: {
+    flex: 2,
+    padding:30
+  },
+  view3: {
+    flex:3,
+    padding:30
+  }
+});
+
 
 export default Return
