@@ -116,7 +116,7 @@ const Exit = ({navigate}) => {
 const styles = StyleSheet.create({
   container: {
     padding: 30,
-    backgroundColor: '#fff',
+    backgroundColor: 'lightgray',
     alignItems: 'center',
     justifyContent: 'center',
   },

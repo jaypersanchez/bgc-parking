@@ -66,7 +66,7 @@ This section explains how the application is used.  A simulation of a vehicle is
 
 ### Arriving Vehicle
 
-Main screen are for vehicles entering the lot for the first time.  It is assumed that when a vehicle provides a ticket but is beyond the one hour threshold, or the vehicle doesn't provide a current parking ticket, a new parking ticket will be issued.
+Main screen are for vehicles entering the lot for the first time.  It is assumed that when a vehicle provides a ticket but is beyond the one hour threshold, or the vehicle doesn't provide a current parking ticket, a new parking ticket will be issued.  Click on the "Save Ticket" to store parking detail.
 
 ### Returning Vehicle
 
