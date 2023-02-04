@@ -80,4 +80,4 @@ This is the simplest out of the other use cases. Upon vehicle exit, the lot exit
 
 ### Final Note
 
-The above uses have been implemented to simulate a simple good day scenario.  It doesn't have logic to determine if the right vehicle size is in the correct parking lot.  It is assumed that a small vehicle can park in any of the other lots.
+The above uses have been implemented to simulate a simple good day scenario.  It doesn't have logic to determine if the right vehicle size is in the correct parking lot.  It is assumed that a small vehicle can park in any of the other lots.  AsyncStorage is used to store data for this demo.
