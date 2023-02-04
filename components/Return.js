@@ -51,6 +51,7 @@ const Return = ({navigate}) => {
         msBetweenDates /= (60*60)
         let hours = Math.abs(Math.round(msBetweenDates))
         let rate = obj.rate
+        let balance = obj.balance
         console.log(`${hours}::${rate}`)
         if(hours > 1) {
           console.log(`provide new ticket`)
@@ -59,6 +60,16 @@ const Return = ({navigate}) => {
         }
         else {
           console.log(`Allow entry and continue from lot entry timestamp`)
+          AsyncStorage.removeItem(parkUUID,(error, result) => {
+            if(!error) {
+              const fee = (rate * hours)
+              setTicketStatus(1) //set to close
+              AsyncStorage.setItem(parkUUID, JSON.stringify({status:ticketStatus, lotentry:entryTimestamp,lotexit:exitTimestamp, designation:selected, rate:designationRate,epoch:epoch,balance:balance}))
+            }
+            else {
+              console.log(`Error.  Unable to remove`)
+            }
+          })
         }
     })
   }

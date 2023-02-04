@@ -51,13 +51,14 @@ const Exit = ({navigate}) => {
         msBetweenDates /= (60*60)
         let hours = Math.abs(Math.round(msBetweenDates))
         let rate = obj.rate
+        let balance = obj.balance
         console.log(`${hours}::${rate}`)
         if(hours >= 24) {
-          const fee = (rate*hours)+overtimefee
+          const fee = (rate*hours)+overtimefee+balance
           console.log(`over time charge ${fee}`)
         }
         else {
-          const fee = rate * hours
+          const fee = (rate * hours)+balance
           console.log(`normal charge ${fee}`)
         }
     })

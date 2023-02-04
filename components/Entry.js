@@ -14,6 +14,7 @@ const Entry = ({navigation}) => {
     const [entryTimestamp, setEntryTimestamp] = useState()
     const [exitTimestamp, setExitTimestamp] = useState("")
     const [epoch, setEpoch] = useState()
+    const [balance, setBalance] = useState(0)
     const [selected, setSelected] = useState()
     const [designationRate, setDesignationRate] = useState()
     const [ticketStatus, setTicketStatus] = useState(1)
@@ -60,8 +61,8 @@ const Entry = ({navigation}) => {
       }
 
       const saveTicket = () => {
-        console.log(`${JSON.stringify({uuid: parkUUID, status:ticketStatus, lotentry:entryTimestamp,lotexit:exitTimestamp, designation:selected, rate:designationRate,epoch:epoch})}`)
-          AsyncStorage.setItem(parkUUID, JSON.stringify({status:ticketStatus, lotentry:entryTimestamp,lotexit:exitTimestamp, designation:selected, rate:designationRate,epoch:epoch}))
+        console.log(`${JSON.stringify({uuid: parkUUID, status:ticketStatus, lotentry:entryTimestamp,lotexit:exitTimestamp, designation:selected, rate:designationRate,epoch:epoch, balance:balance})}`)
+          AsyncStorage.setItem(parkUUID, JSON.stringify({status:ticketStatus, lotentry:entryTimestamp,lotexit:exitTimestamp, designation:selected, rate:designationRate,epoch:epoch,balance:balance}))
           .then(error => {
             if(error) console.log(`Unable to save ticket information`)
           })
@@ -86,15 +87,17 @@ const Entry = ({navigation}) => {
               />
           </View>
           <View>
-                <Button onPress={saveTicket}>Save Ticket</Button>
+                <TouchableOpacity style={styles.button} onPress={() => saveTicket()}>
+                  <Text>Save Ticket</Text>
+                </TouchableOpacity>
           </View>
           <View>
-            <TouchableOpacity onPress={() => navigation.navigate("Return")}>
+            <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("Return")}>
               <Text>Returning Vehicle</Text>
             </TouchableOpacity>
           </View>
           <View>
-            <TouchableOpacity onPress={() => navigation.navigate("Exit")}>
+            <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("Exit")}>
               <Text>Exit Lot</Text>
             </TouchableOpacity>
           </View>
@@ -111,6 +114,15 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'center',
     },
+    button: {
+      alignItems: 'center',
+      justifyContent: 'center',
+      paddingVertical: 12,
+      paddingHorizontal: 32,
+      borderRadius: 4,
+      elevation: 3,
+      backgroundColor: 'blue',
+    }
   });
 
   export default Entry
