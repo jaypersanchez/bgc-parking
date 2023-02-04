@@ -58,7 +58,7 @@ You are free to design the system in any pattern you wish. However, take note th
 
 # Application User Guide
 
-This section explains how the application is used.  Because a simulation of a vehicle is not implemented, Each screen represents a use case scenario.  There are three scenarios:
+This section explains how the application is used.  A simulation of a vehicle is not implemented, therefore each screen represents a use case scenario.  There are three scenarios:
 
 1. Arriving Vehicle
 2. Returning Vehicle

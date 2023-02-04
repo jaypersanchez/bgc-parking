@@ -54,9 +54,11 @@ const Return = ({navigate}) => {
         console.log(`${hours}::${rate}`)
         if(hours > 1) {
           console.log(`provide new ticket`)
+          navigation.navigate(Entry)
+          
         }
         else {
-          console.log(`Aloow entry and continue from lot entry timestamp`)
+          console.log(`Allow entry and continue from lot entry timestamp`)
         }
     })
   }
