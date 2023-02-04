@@ -1,72 +1,27 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect, useMemo } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Button, SafeAreaView } from 'react-native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import { NavigationContainer } from '@react-navigation/native'
 import uuid from 'react-native-uuid';
 import { SelectList } from 'react-native-dropdown-select-list'
+import Entry from './components/Entry'
+import Exit from './components/Exit'
+import Return from './components/Return'
 
 export default function App() {
 
-  const [parkUUID, setParkUUID] = useState('000');
-  const [entryTimestamp, setEntryTimestamp] = useState()
-  const [exitTimestamp, setExitTimestamp] = useState()
-  const [selected, setSelected] = useState()
-  const [designationRate, setDesignationRate] = useState()
-  const [ticketStatus, setTicketStatus] = useState(1)
-  const vehicleDesignationList = [
-    {key:'s', value:'Small'},
-    {key:'m', value:'Medium'},
-    {key:'l', value:'Large'}
-  ]
-
-  useEffect(() => {
-    setParkUUID('000')
-    var current = new Date().getDate()
-    var month = new Date().getMonth() + 1
-    var year = new Date().getFullYear()
-    var hour = new Date().getHours()
-    var minutes = new Date().getMinutes()
-    //military time format
-    setEntryTimestamp(`${month}/${current}/${year} - ${hour}::${minutes}`)
-    setParkUUID(uuid.v4())
-  },[])
-
-  //determine entrance/exit/re-entry state
-  useMemo(() => {
-
-  })
-
-  const setHourlyRate = () => {
-    if(selected === "Small") {
-      setDesignationRate(20)
-    }
-
-    if(selected === "Medium") {
-      setDesignationRate(60)
-    }
-
-    if(selected === "Large") {
-      setDesignationRate(100)
-    }
-  }
+  const Stack = createNativeStackNavigator()
 
   return (
-    <View style={styles.container}>
-      <Text>Ticket Status: {ticketStatus == 1 ? 'Open Ended' : 'Closed'}</Text>
-      <Text>Parking Entry Identifier: {parkUUID}</Text>
-      <Text>Lot Entry Timestamp: {entryTimestamp}</Text>
-      <Text>Lot Exit Timestamp: {exitTimestamp}</Text>
-      <StatusBar style="auto" />
-      <View>
-          <Text>Vehicle Size Designation - {selected} Rate {designationRate}</Text>
-          <SelectList 
-            onSelect={() => setHourlyRate()}
-            setSelected={(val) => setSelected(val)}
-            data={vehicleDesignationList}
-            save="value"
-          />
-      </View>
-    </View>
-    
+        <NavigationContainer>
+          <Stack.Navigator initialRouteName="Entry">
+            <Stack.Screen name="Entry" component={Entry} />
+            <Stack.Screen name="Exit" component={Exit} />
+            <Stack.Screen name="Return" component={Return} />
+          </Stack.Navigator>
+        </NavigationContainer>  
+      
   );
 }
 
